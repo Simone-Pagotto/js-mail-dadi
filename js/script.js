@@ -5,8 +5,9 @@ var DICE_MIN = 1;
 var arrayEmail = ["io@mail.it","tu@mail.it","egli@mail.it","noi@mail.it","voi@mail.it","essi@mail.it"];
 var submitElement = document.getElementById("submit");
 var throwDiceElement = document.getElementById("dado");
+var addEmailElement = document.getElementById("add");
 var inputEmail;
-var exit;
+var exit=1;//imposto exit ad uno per evitare di aggiungere indirizzi email non ancora ricercati
 var yourDice;
 var computerDice;
 
@@ -14,17 +15,25 @@ var computerDice;
 submitElement.addEventListener("click",function(){
 
   inputEmail = document.getElementById("mail").value;
-  exit = 0;
-  console.log(inputEmail,typeof inputEmail, arrayEmail[0],typeof arrayEmail[0],EXIT);
+  exit = 0; //permetto al ciclo di proseguire finchè non trova un match
+  console.log(inputEmail,typeof inputEmail, arrayEmail[0],typeof arrayEmail[0],exit);
 
   // CICLO FOR CHE CONTROLLA OGNI POSIZIONE DELL'ARRAY IN CERCA DI UN INDIRIZZO EMAIL CORRISPONDENTE, ESCE DAL CICLO QUANDO LO TROVA
   for(i=0 ; i<=arrayEmail.length && exit==0; i++){
     if (inputEmail == arrayEmail[i]){
       document.getElementById("message").innerHTML = "Il suo indirizzo email è presente nel database; può accedere!";
-      exit=1;
+      exit=1; //esco dal ciclo
     }else {
       document.getElementById("message").innerHTML = "Il suo indirizzo email non è presente nel database; NON può accedere!";
     }
+  }
+});
+
+// REGISTRARSI TRAMITE EMAIL NON PRESENTE
+addEmailElement.addEventListener("click",function(){
+  if(exit==0){
+    arrayEmail.push(inputEmail);
+    console.log(arrayEmail);
   }
 });
 
